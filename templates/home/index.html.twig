@@ -17,7 +17,7 @@
                 {{ article.body }}
             </div>
             <div>
-                Дата создания: {{ article.createdAt|date('d.m.Y H:i:s') }}, Автор: {{ article.title }}
+                    Дата создания: {{ article.createdAt|date('d.m.Y H:i:s') }}, Автор статьи: {{ article.author }}
             </div>
         </article>
     {% endfor %}

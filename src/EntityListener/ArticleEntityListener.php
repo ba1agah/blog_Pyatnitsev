@@ -24,8 +24,6 @@ class ArticleEntityListener
         $entity = $event->getObject();
         $entity->setCreatedAt(new \DateTimeImmutable());
         $entity->setAuthor($this->security->getUser());
-
-
     }
 
 }
