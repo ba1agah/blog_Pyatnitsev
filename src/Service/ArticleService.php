@@ -14,9 +14,9 @@ class ArticleService implements ArticleServiceInterface
     {
 
     }
-    public function getRecentArticles(int $count)
+    public function getRecentArticles(int $count, ?string $search = null): \Doctrine\ORM\Query
     {
         $this->logger->info(sprintf('getting %d recent articles', $count));
-        return $this->articleRepository->getRecentArticles($count);
+        return $this->articleRepository->getRecentArticles($count, $search);
     }
 }
