@@ -12,6 +12,7 @@ use PHPUnit\Util\Json;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -60,7 +61,7 @@ class ApiController extends AbstractController
             ],
         ]);
     }
-    #[Route('article', methods: ['POST'])]
+    #[Route('/article', methods: ['POST'])]
     public function createArticle(
         Request $request, EntityManagerInterface $entityManager,
         UserRepository $userRepository,
@@ -69,23 +70,31 @@ class ApiController extends AbstractController
 
         $errorTemplate = 'Поле %s не может быть пустым ';
         $errors =[];
-        if ($request->request->has('title')) {
+
+        $payload = $request->getContent();
+
+        $data = @json_decode($payload,true);
+
+
+
+        if (!isset($data['title'])) {
             $errors[]=sprintf($errorTemplate, 'title');
         }
 
-        if ($request->request->has('body')) {
+        if (!isset($data['body'])) {
             $errors[]=sprintf($errorTemplate, 'body');
         }
 
         if (!empty($errors)) {
-            throw new BadRequestHttpException();
+            return new JsonResponse($errors, Response::HTTP_BAD_REQUEST);
         }
 
         $article = new Article();
 
-        $article->setTitle($request->request->get('title'))
-            ->setBody($request->request->get('body'))
+        $article->setTitle($data['title'])
+            ->setBody($data['body'])
             ->setAuthor($userRepository->findOneBy([]));
+
         $entityManager->persist($article);
         $entityManager->flush();
 
