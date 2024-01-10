@@ -37,6 +37,10 @@ class Comment
     #[Assert\NotBlank]
     private ?string $comment = null;
 
+    #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Article $article = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -115,5 +119,22 @@ class Comment
     public function isStatusPublished(): bool
     {
         return CommentStatus::STATUS_PUBLISHED === $this->getStatus()?->getName();
+    }
+
+    public function getArticle(): ?Article
+    {
+        return $this->article;
+    }
+
+    public function setArticle(?Article $article): static
+    {
+        $this->article = $article;
+
+        return $this;
+    }
+
+    public function getDisplayAuthor(): string
+    {
+        return $this->getAuthor() ? $this->getAuthor()->__toString() : $this->getEmail();
     }
 }

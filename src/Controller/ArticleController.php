@@ -18,7 +18,9 @@ class ArticleController extends AbstractController
     #[Route('/{article}', name: 'show')]
     public function index(Article $article, Request $request, CommentRepository $commentRepository): Response
     {
-        $comment = new Comment();
+        $comment = (new Comment())
+            ->setArticle($article);
+        
         $form = $this->createForm($this->getUser() ? AuthorizedCommentType::class : UnauthorizedCommentType::class, $comment);
         $form->handleRequest($request);
 
@@ -37,6 +39,7 @@ class ArticleController extends AbstractController
 
         return $this->render('article/index.html.twig', [
             'article' => $article,
+            'form' => $form,
         ]);
     }
 }
