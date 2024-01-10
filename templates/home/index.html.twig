@@ -20,16 +20,16 @@
 
     {% for article in articles %}
         <article>
-            <h2>{{ article.title }}</h2>
-            <div> class="article-content">
+            <h2><a href="{{ path('article.show', {'article': article.id}) }}"{{ article.title }}</a></h2>
+           {#  <div> class="article-content">
                 {{ article.body }}
-            </div>
+            </div>   #}
             <div>
                     Дата создания: {{ article.createdAt|date('d.m.Y H:i:s') }}, Автор статьи: {{ article.author }}
             </div>
         </article>
     {% else %}
-        <div>Ничего не нашлось</div>
+        <div>Ничего не найдено</div>
     {% endfor %}
 
     {{ pagerfanta(articles) }}
