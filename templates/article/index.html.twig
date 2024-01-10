@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArticleController!{% endblock %}
+
+{% block body %}
+    <h1> {{ article.title }}</h1>
+    <h2> Дата создания: {{ article.createdAt|date('d.m.Y H:i:s') }}, Автор статьи: {{ article.author }} </h2>
+    <div class="article-content">
+        {{ article.body|raw|nl2br }}
+    </div>
+
+    <div>
+        <h4>Комментарии</h4>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
