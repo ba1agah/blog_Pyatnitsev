@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Домашняя страница{% endblock %}
 
 {% block body %}
 
@@ -10,6 +10,7 @@
 </style>
 
 <div class="example-wrapper">
+    <a href="{{ path('admin.index') }}">Администрирование</a>
     {# <a href="{{ path('admin.index') }}">Администрирование</a> #}
 
     {{ form_start(form) }}
@@ -21,9 +22,8 @@
     {% for article in articles %}
         <article>
             <h2><a href="{{ path('article.show', {'article': article.id}) }}"{{ article.title }}</a></h2>
-           {#  <div> class="article-content">
-                {{ article.body }}
-            </div>   #}
+            <a href="{{ path('app_article_edit', {'id': article.id}) }}">Редактировать</a>
+
             <div>
                     Дата создания: {{ article.createdAt|date('d.m.Y H:i:s') }}, Автор статьи: {{ article.author }}
             </div>

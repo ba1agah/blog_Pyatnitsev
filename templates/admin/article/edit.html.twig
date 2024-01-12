@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Article{% endblock %}
+{% block title %}Изменение статьи{% endblock %}
 
 {% block body %}
     <h1>Изменение статьи</h1>
 
     {{ include('admin/article/_form.html.twig', {'button_label': 'Обновить'}) }}
 
-    <a href="{{ path('app_article_index') }}">Вернуться к списку</a>
+    <a class="btn btn-secondary" href="{{ path('app_article_index') }}">Вернуться к списку</a>
 
     {{ include('admin/article/_delete_form.html.twig') }}
 {% endblock %}
