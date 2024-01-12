@@ -25,7 +25,7 @@
 
         {% for item in article.comments|filter(v => v.isViewableByUsers) %}
             <div class="comment">
-                {{ item.comment }}, Автор {{ item.DisplayAuthor }}
+                {{ item.comment }}, Автор: {{ item.DisplayAuthor }}, Дата: {{ item.createdAt|date('d.m.Y H:i:s') }}
             </div>
         {% else %}
             <div>Комментариев пока нет</div>
