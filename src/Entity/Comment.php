@@ -137,4 +137,9 @@ class Comment
     {
         return $this->getAuthor() ? $this->getAuthor()->__toString() : $this->getEmail();
     }
+
+    public function isViewableByUsers(): bool
+    {
+        return $this->isStatusPublished();
+    }
 }

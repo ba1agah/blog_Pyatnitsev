@@ -23,11 +23,12 @@
         {{ form_end(form) }}
 {# Список комментариев, отсортированный по дате создания desc #}
 
-        {% for item in article.comments %}
+        {% for item in article.comments|filter(v => v.isViewableByUsers) %}
             <div class="comment">
                 {{ item.comment }}, Автор {{ item.DisplayAuthor }}
             </div>
         {% else %}
+            <div>Комментариев пока нет</div>
         {% endfor %}
     </div>
 
