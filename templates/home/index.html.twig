@@ -21,7 +21,7 @@
 
     {% for article in articles %}
         <article>
-            <h2><a href="{{ path('article.show', {'article': article.id}) }}"{{ article.title }}</a></h2>
+            <h2><a href="{{ path('article.show', {'article': article.id}) }}">{{ article.title }}</a></h2>
             <a href="{{ path('app_article_edit', {'id': article.id}) }}">Редактировать</a>
 
             <div>
